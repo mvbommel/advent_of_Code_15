@@ -7,7 +7,7 @@ for(int x = 0; x < 1000; x++)
 {
     for (int y = 0; y < 1000; y++)
     {
-        lights.Add(new Light() { x =x, y = y, on = false});
+        lights.Add(new Light() { x =x, y = y, brightness = 0});
     }
 }
 
@@ -25,7 +25,7 @@ foreach(string line in file)
             {
                 if( light.x >= startX && light.x <= endX && light.y >= startY && light.y <= endY)
                 {
-                    light.on = true;
+                    light.brightness++;
                 }
             }
             break;
@@ -39,7 +39,10 @@ foreach(string line in file)
             {
                 if (light.x >= startX && light.x <= endX && light.y >= startY && light.y <= endY)
                 {
-                    light.on = false;
+                    if (light.brightness > 0)
+                    {
+                        light.brightness--;
+                    }
                 }
             }
             break;
@@ -53,32 +56,22 @@ foreach(string line in file)
             {
                 if (light.x >= startX && light.x <= endX && light.y >= startY && light.y <= endY)
                 {
-                   if(light.on)
-                    {
-                        light.on = false;
-                    }
-                    else
-                    {
-                        light.on = true;
-                    }
+                  light.brightness += 2;
                 }
             }
             break;
     }
 }
-int lightsOnCount = 0;
+long totalBrightness = 0;
 foreach (Light light in lights)
 {
-    if (light.on)
-    {
-        lightsOnCount++;
-    }
+    totalBrightness+= light.brightness;
 }
-Console.WriteLine(lightsOnCount);
+Console.WriteLine(totalBrightness);
 
 public class Light
 {
     public int x { get; set; }
     public int y { get; set; }
-    public bool on { get; set; }
+    public int brightness { get; set; }
 }
