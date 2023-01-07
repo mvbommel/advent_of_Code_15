@@ -22,7 +22,31 @@ foreach(string line in file)
         }
         dashLocation = temp.IndexOf("\\");
     }
-    Console.WriteLine(temp);
     totalLength += (totalLineLength - totalStringLength);
 }
-Console.WriteLine(totalLength);
+Console.WriteLine( "part 1 " + totalLength);
+
+int totalLength2 = 0;
+foreach (string line in file)
+{
+    int totalLineLength = line.Length;
+    int totalStringLength = totalLineLength + 4;
+    string temp = line;
+    int dashLocation = temp.IndexOf('\\');
+    while (dashLocation > 0)
+    {
+        if (temp[dashLocation + 1] == 'x')
+        {
+            totalStringLength += 1;
+            temp = temp.Remove(dashLocation, 4);
+        }
+        else
+        {
+            totalStringLength += 2;
+            temp = temp.Remove(dashLocation, 2);
+        }
+        dashLocation = temp.IndexOf("\\");
+    }
+    totalLength2 += (totalStringLength - totalLineLength);
+}
+Console.WriteLine("part 2 " + totalLength2);
