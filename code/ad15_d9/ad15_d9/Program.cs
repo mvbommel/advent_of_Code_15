@@ -1,4 +1,29 @@
 ﻿// See https://aka.ms/new-console-template for more information
+List<Connection> GetAdjecentConnections(Location location, List<Connection> connections, List<Location> locations)
+{
+    List<Connection> adjecent = new List<Connection>();
+
+    foreach(Connection connection in connections)
+    {
+        if(connection.placeA.name == location.name)
+        {
+            Location b = locations.Find(x => x.name == connection.placeB.name);
+            if (!b.visited)
+            {
+                adjecent.Add(connection);
+            }
+        }
+        if (connection.placeB.name == location.name)
+        {
+            Location a = locations.Find(x => x.name == connection.placeA.name);
+            if (!a.visited)
+            {
+                adjecent.Add(connection);
+            }
+        }
+    }
+}
+
 string[] file = File.ReadAllLines(@"..\..\..\..\..\..\txt\day9.txt");
 
 List<Connection> connections = new List<Connection>();
